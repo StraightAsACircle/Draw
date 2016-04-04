@@ -1,0 +1,102 @@
+<html>
+  <script type="text/javascript">
+  var canvas, ctx, flag = false,
+      prevX = 0,
+      currX = 0,
+      prevY = 0,
+      currY = 0,
+      startX = 0,
+      startY = 0,
+      startCount = 0,
+      dot_flag = false;
+
+  var x = "black",  // Draw Color
+      y = 2;        // Draw thickness
+  
+  function init() {
+      canvas = document.getElementById('can');
+      ctx = canvas.getContext("2d");
+      w = canvas.width;
+      h = canvas.height;
+  
+      canvas.addEventListener("mousemove", function (e) {
+          findxy('move', e)
+      }, false);
+      canvas.addEventListener("mousedown", function (e) {
+          findxy('down', e)
+      }, false);
+      canvas.addEventListener("mouseup", function (e) {
+          findxy('up', e)
+      }, false);
+      canvas.addEventListener("mouseout", function (e) {
+          findxy('out', e)
+      }, false);
+  }
+  
+  function draw() {
+      ctx.beginPath();
+      ctx.moveTo(prevX, prevY);
+      ctx.lineTo(currX, currY);
+      ctx.strokeStyle = x;
+      ctx.lineWidth = y;
+      ctx.stroke();
+      ctx.closePath();
+  }
+
+  // \assigns currX, currY \from startX, startY, startCount
+  function calcCircle() {
+      // Algo for:
+      //    x = h + r cos(theta)
+      //    y = k + r sin(theta)
+      //        |   0 <= theta <= 360,
+      //            h = the x coord center
+      //            k = y cord center
+      r = 100;      // Radius
+      step = 0.1;    // Theta increase each time
+      thetaOffset = 48; // Offset to start at the top of the cirlce
+      theta = (startCount+thetaOffset) * step;
+      // TODO: Offset so senter is below
+      currX = startX + r * Math.cos(theta);
+      currY = startY + r * Math.sin(theta)+ r;
+  }
+  
+  function findxy(res, e) {
+      if (res == 'down') {
+          startX = e.clientX - canvas.offsetLeft;
+          startY = e.clientY - canvas.offsetTop;
+          startCount = 0;
+          currX = startX;
+          currY = startY;
+          prevX = currX;
+          prevY = currY;
+  
+          flag = true;
+          dot_flag = true;
+          if (dot_flag) {
+              ctx.beginPath();
+              ctx.fillStyle = x;
+              ctx.fillRect(currX, currY, 2, 2);
+              ctx.closePath();
+              dot_flag = false;
+          }
+      }
+      if (res == 'up' || res == "out") {
+          flag = false;
+      }
+      if (res == 'move') {
+          if (flag) {
+              calcCircle();
+              startCount++;
+              //console.log(prevX + ","+prevY + " | "+currX + ","+currY);
+              draw();
+              prevX = currX;
+              prevY = currY;
+          }
+      }
+  }
+  </script>
+  <body onload="init()">
+      <h1>Draw a Straight Line</h1>
+      <canvas id="can" width="600" height="400" style="position:absolute;top:10%;left:10%;border:2px solid;"></canvas>
+  </body>
+</html>
