@@ -55,9 +55,8 @@
       step = 0.1;    // Theta increase each time
       thetaOffset = 48; // Offset to start at the top of the cirlce
       theta = (startCount+thetaOffset) * step;
-      // TODO: Offset so senter is below
       currX = startX + r * Math.cos(theta);
-      currY = startY + r * Math.sin(theta)+ r;
+      currY = startY + r * Math.sin(theta) + r;
   }
   
   function findxy(res, e) {
