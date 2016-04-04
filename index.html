@@ -1,5 +1,6 @@
-<html>
-  <script type="text/javascript">
+
+<!-- saved from url=(0035)http://straightasacircle.github.io/ -->
+<html hola_ext_inject="disabled"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript">
   var canvas, ctx, flag = false,
       prevX = 0,
       currX = 0,
@@ -10,6 +11,7 @@
       startCount = 0,
       dot_flag = false;
 
+  var colors = ["red", "orange", "yellow", "green", "blue", "#4B0082", "#8D38C9"];
   var x = "black",  // Draw Color
       y = 2;        // Draw thickness
   
@@ -52,8 +54,8 @@
       //            h = the x coord center
       //            k = y cord center
       r = 100;      // Radius
-      step = 0.1;    // Theta increase each time
-      thetaOffset = 48; // Offset to start at the top of the cirlce
+      step = 0.025;    // Theta increase each time
+      thetaOffset = 188; // Offset to start at the top of the cirlce
       theta = (startCount+thetaOffset) * step;
       currX = startX + r * Math.cos(theta);
       currY = startY + r * Math.sin(theta) + r;
@@ -61,6 +63,7 @@
   
   function findxy(res, e) {
       if (res == 'down') {
+          x = colors[Math.floor(Math.random() * colors.length)]; 
           startX = e.clientX - canvas.offsetLeft;
           startY = e.clientY - canvas.offsetTop;
           startCount = 0;
@@ -94,8 +97,9 @@
       }
   }
   </script>
-  <body onload="init()">
+  </head><body onload="init()">
       <h1>Draw a Straight Line</h1>
       <canvas id="can" width="800" height="600" style="position:absolute;top:10%;left:10%;border:2px solid;"></canvas>
-  </body>
-</html>
+  
+
+</body></html>
