@@ -52,7 +52,7 @@
       //            h = the x coord center
       //            k = y cord center
       r = 100;      // Radius
-      step = 0.1;    // Theta increase each time
+      step = 0.05;    // Theta increase each time
       thetaOffset = 48; // Offset to start at the top of the cirlce
       theta = (startCount+thetaOffset) * step;
       currX = startX + r * Math.cos(theta);
@@ -96,6 +96,6 @@
   </script>
   <body onload="init()">
       <h1>Draw a Straight Line</h1>
-      <canvas id="can" width="600" height="400" style="position:absolute;top:10%;left:10%;border:2px solid;"></canvas>
+      <canvas id="can" width="800" height="600" style="position:absolute;top:10%;left:10%;border:2px solid;"></canvas>
   </body>
 </html>
